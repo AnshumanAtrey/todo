@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
 import Ripple from "./Ripple";
 
@@ -6,11 +6,29 @@ function App() {
   const [task, settask] = useState("");
   const [taskList, setTaskList] = useState([]);
 
+  // Load tasks from localStorage when the component mounts
+  useEffect(() => {
+    console.log("Loading tasks from localStorage");
+    const storedTasks = localStorage.getItem("tasks");
+    console.log("Loaded from localStorage:", storedTasks);
+    if (storedTasks) {
+      setTaskList(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("Saving to localStorage:", taskList);
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task.trim() !== "") {
-      setTaskList([...taskList, task]);
-      settask("");
+      const updatedTaskList = [...taskList, task];
+      setTaskList(updatedTaskList);
+      settask(""); // Clear the input field
+      console.log("Adding task:", task);
+      console.log("Updated task list:", updatedTaskList);
     }
   };
 
