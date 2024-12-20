@@ -1,5 +1,7 @@
 # The Minimalist Tasks
 
+![Application Preview](./assets/minimalist-tasks.gif)
+
 A simple and elegant task management application built with React and Vite. This application helps you organize your daily tasks efficiently with a minimalist design.
 
 ## Features
